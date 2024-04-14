@@ -1,21 +1,51 @@
 .sidebar {
   border-right: 1px solid var(--twitter-background);
-  flex: 0.3;
-  /* min-width: 250px; */
-  margin-top: 20px;
-  padding-left: 20px;
+  flex: 0.15;
+  min-width: 250px;
+  margin-top: 10px;
+  margin-right: 20px;
+  border-right: 1px solid #1a282d;
+
+  padding-left: 0px;
   padding-right: 20px;
+}
+.sidebar__top h2{
+  font-size: 24px; /* Increase font size */
+  font-weight: bold; /* Make the title bold */
+  color: #fff;
+  background: linear-gradient(135deg, #ff8a00, #e52e71); /* Gradient for title color */
+  -webkit-background-clip: text; /* Clip the gradient to the text */
+  -webkit-text-fill-color: transparent;
+}
+
+.sidebar__top{
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  border-bottom: 1px solid #1a282d;
+  padding: 10px; 
+}
+
+.sidebar__top img{
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
 }
 
 .sidebar__twitterIcon {
-  color: var(--twitter-color);
+  /* color: var(--twitter-color); */
+  color: linear-gradient(135deg, #ff8a00, #e52e71);
   font-size: 30px !important;
-  margin-left: 20px;
-  margin-bottom: 20px;
+  /* margin-left: 20px;
+  margin-bottom: 20px; */
+  margin-right: 10px;
+  background: linear-gradient(135deg, #ff8a00, #e52e71); /* Gradient for icon color */
+  -webkit-background-clip: text; /* Clip the gradient to the text */
+  -webkit-text-fill-color: transparent;
 }
 
 .sidebar__tweet {
-  background-color: var(--twitter-color) !important;
+  background: linear-gradient(135deg, #ff8a00, #e52e71);
   border: none !important;
   color: white !important;
   font-weight: 900 !important;
@@ -23,4 +53,83 @@
   border-radius: 30px !important;
   height: 50px !important;
   margin-top: 20px !important;
+}
+
+.sidebar__tweet:hover{
+  background: linear-gradient(135deg, #e52e71, #ff8a00);
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.popup-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 16px;
+  width: 100%; /* Added to make all input fields full width */
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #ff8a00, #e52e71);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #e52e71, #ff8a00);
 }

@@ -1,26 +1,28 @@
 .sidebarOption {
   display: flex;
   align-items: center;
+  padding: 10px 20px; /* Adjust padding for spacing */
   cursor: pointer;
+  transition: background-color 0.3s; /* Smooth background color transition */
 }
 
 .sidebarOption:hover {
-  background-color: #e8f5fe;
-  border-radius: 30px;
-  color: var(--twitter-color);
-  transition: color 100ms ease-out;
+  background-color: #1a282d;
+  border-radius: 10px;
 }
 
 .sidebarOption > .MuiSvgIcon-root {
-  padding: 20px;
+  font-size: 24px; /* Adjust icon size */
+  margin-right: 10px; /* Add space between icon and text */
 }
 
-.sidebarOption > h2 {
-  font-weight: 800;
-  font-size: 20px;
-  margin-right: 20px;
+.sidebarOption > h4 {
+  font-size: 16px; /* Adjust text size */
+  font-weight: 500; /* Adjust font weight */
+  margin: 0; /* Remove default margin */
 }
 
 .sidebarOption--active {
-  color: var(--twitter-color);
+  color: #0079d3; /* Adjust active item color */
+  font-weight: bold; /* Bold font for active item */
 }

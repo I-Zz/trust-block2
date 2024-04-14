@@ -3,14 +3,23 @@ import TweetBox from "./TweetBox";
 import Post from "./Post";
 import "./Feed.css";
 import FlipMove from "react-flip-move";
-// import axios from "axios";
 import { TwitterContractAddress } from "./config.js";
 import { ethers } from "ethers";
 import Twitter from "./utils/TwitterContract.json";
 import contract from "./utils/twitter.abi.json";
+import { Button, Modal, Box } from "@mui/material";
 
 function Feed({ personal }) {
   const [posts, setPosts] = useState([]);
+  const [isTweetBoxOpen, setIsTweetBoxOpen] = useState(false);
+
+  const handlePostButtonClick = () => {
+    setIsTweetBoxOpen(true);
+  };
+
+  const handleCloseTweetBox = () => {
+    setIsTweetBoxOpen(false);
+  };
 
   const getUpdatedTweets = (allTweets, address) => {
     let updatedTweets = [];
@@ -95,14 +104,37 @@ function Feed({ personal }) {
     }
   };
 
+  
   return (
     <div className="feed">
       <div className="feed__header">
         <h2>Home</h2>
+        <Button variant="contained" onClick={handlePostButtonClick}>
+          Post
+        </Button>
       </div>
-
-      <TweetBox />
-
+      <Modal
+        open={isTweetBoxOpen}
+        onClose={handleCloseTweetBox}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "35%",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <TweetBox onClose={handleCloseTweetBox} />
+        </Box>
+      </Modal>
+      {/* <TweetBox /> */}
       <FlipMove>
         {posts.map((post) => (
           <Post

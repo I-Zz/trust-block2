@@ -1,35 +1,99 @@
 .widgets {
-  flex: 0.3;
+  flex: 0.4;
+  display: flex;
+  flex-direction: column;
 }
 
 .widgets__input {
-  display: flex;
+  background: linear-gradient(135deg, #304549, #573349);
   align-items: center;
-  background-color: var(--twitter-background);
   padding: 10px;
   border-radius: 20px;
   margin-top: 10px;
   margin-left: 20px;
+  display: flex;
+  max-width: 50%;
+  padding: 10px;
 }
 
 .widgets__input > input {
+  background: linear-gradient(135deg, #304549, #573349);
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
   border: none;
-  background-color: var(--twitter-background);
+  width: 100%;
+  height: 100%;
+  flex: 0.9;
 }
 
 .widgets__searchIcon {
-  color: gray;
+  color: white;
+  flex: 0.1;
 }
 
 .widgets__widgetContainer {
   margin-top: 15px;
   margin-left: 20px;
   padding: 20px;
-  background-color: #f5f8fa;
+  font-weight: 900;
+  color: white;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .widgets__widgetContainer > h2 {
   font-size: 18px;
   font-weight: 800;
+}
+
+.twitter-embed-container {
+  flex: 1;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #0b1416, #3e1f32);
+}
+
+.news-embed-container {
+  flex: 1;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #0b1416, #3e1f32);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.news-card {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 0px;
+  padding: 5px;
+  gap:10px;
+  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.37);
+}
+
+.news-card h3 {
+  margin-top: 0;
+}
+
+.news-card p {
+  margin-bottom: 10px;
+}
+
+.news-card a {
+  color: #1da1f2;
+  text-decoration: none;
+}
+.news-card a:hover {
+  color: #548bad;
+  text-decoration: none;
+}
+
+/* Styling for the Twitter timeline */
+.twitter-timeline {
+  width: 100% !important;
+  height: 100% !important;
 }

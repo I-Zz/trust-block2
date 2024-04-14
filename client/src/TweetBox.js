@@ -53,7 +53,7 @@ function TweetBox() {
         console.log("Ethereum object doesn't exist!");
       }
     } catch (error) {
-      console.log("Error submitting new Tweet", error);
+      console.log("Error submitting new Post", error);
     }
   };
 
@@ -73,37 +73,44 @@ function TweetBox() {
   }, []);
 
   return (
+    <div className="popup-overlay">
+    <div className="popup-content">
     <div className="tweetBox">
       <form>
-        <div className="tweetBox__input">
-          <Avatar
+        <div className="form-group">
+          {/* <Avatar
             style={{ width: "100px", height: "100px" }}
             avatarStyle="Circle"
             {...avatarOptions}
-          />
+          /> */}
           <input
+            className="tweetBox__imageInput"
             onChange={(e) => setTweetMessage(e.target.value)}
             value={tweetMessage}
-            placeholder="What's happening?"
+            placeholder="Share your opinion: "
             type="text"
           />
         </div>
+        <div className="form-group">
         <input
           value={tweetImage}
           onChange={(e) => setTweetImage(e.target.value)}
           className="tweetBox__imageInput"
-          placeholder="Optional: Enter image URL"
+          placeholder="Enter News URL"
           type="text"
         />
+        </div>
 
         <Button
           onClick={sendTweet}
           type="submit"
           className="tweetBox__tweetButton"
         >
-          Tweet
+          Post
         </Button>
       </form>
+    </div>
+    </div>
     </div>
   );
 }

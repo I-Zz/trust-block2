@@ -1,17 +1,83 @@
+/* .tweetBox { padding-bottom: 10px; border-bottom: 8px solid var(--twitter-background); padding-right: 10px; } */
 .tweetBox {
-  padding-bottom: 10px;
-  border-bottom: 8px solid var(--twitter-background);
-  padding-right: 10px;
+  padding: 20px;
+  /* border: 1px solid #ccc; border-radius: 8px; */
+  /* background: #fff; */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 400px; /* Set the width of the popup */
+  margin: 0 auto; /* Center the popup horizontally */
 }
 
-.tweetBox > form {
+.tweetBox__input > input {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  font-size: 1.2rem; /* Increased font size */
+}
+
+.tweetBox__tweetButton {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
-.tweetBox__input {
-  padding: 20px;
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 15px; /* Increased padding */
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 1.2rem; /* Increased font size */
+  width: 100%; /* Added to make all input fields full width */
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.tweetBox > form {
   display: flex;
+
+  flex-direction: column;
+}
+
+/* .tweetBox__input { padding: 20px; display: flex; } */
+.tweetBox__input:hover {
+  transform: scale(1.02); /* Scale up on hover for unique animation */
 }
 
 .tweetBox__input > input {
@@ -19,22 +85,23 @@
   margin-left: 20px;
   font-size: 20px;
   border: none;
+  background: linear-gradient(135deg, #0b1416, #806877);
+  color: white; /* Text color */
+}
+
+.tweetBox__input > input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Placeholder text color */
 }
 
 .tweetBox__imageInput {
   border: none;
-  padding: 10px;
+  color: white;
+  padding: 15px; /* Increased padding */
+  background: linear-gradient(135deg, #0b1416, #806877);
+  font-size: 1.2rem; /* Increased font size */
 }
 
-.tweetBox__tweetButton {
-  background-color: var(--twitter-color) !important;
-  border: none !important;
-  color: white !important;
-  font-weight: 900 !important;
-  text-transform: inherit !important;
-  border-radius: 30px !important;
-  width: 80px;
-  height: 40px !important;
-  margin-top: 20px !important;
-  margin-left: auto !important;
+/* .tweetBox__tweetButton { border: none !important; color: white !important; font-weight: 900 !important; text-transform: inherit !important; border-radius: 30px !important; width: 80px; height: 40px !important; margin-top: 20px !important; margin-left: auto !important; background: linear-gradient(135deg, #000000, #470000); } */
+.tweetBox__tweetButton:hover {
+  background: linear-gradient(135deg, #7b6767, #470000);
 }

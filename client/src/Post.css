@@ -1,46 +1,59 @@
 .post {
   display: flex;
   align-items: flex-start;
-  border-bottom: 1px solid var(--twitter-background);
-  padding-bottom: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Add a border for glassmorphism effect */
+  border-radius: 20px; /* Rounded corners */
+  padding: 20px;
+  margin-bottom: 20px; /* Add some space between posts */
+  background-color: rgba(255, 255, 255, 0.1); 
+  backdrop-filter: blur(30px); 
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); 
+  -webkit-backdrop-filter: blur(10px);
 }
-
-.post__body {
-  flex: 1;
-  padding: 10px;
-}
-
-.post__body > img {
-  border-radius: 20px;
-}
-
-.post__footer {
+.post:hover{
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  align-items: flex-start;
+  border: 1px solid rgba(0, 0, 0, 0.2); /* Add a border for glassmorphism effect */
+  background-color: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(30px); 
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.45); 
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.post__container {
+  display: flex;
+  flex: 1;
+}
+
+.post__avatar {
+  padding: 0; /* Remove padding from avatar */
+  margin-right: 20px; /* Add some space between avatar and content */
+}
+
+.post__content {
+  flex: 1;
+}
+
+.post__headerText > h3 {
+  font-size: 18px; /* Increase font size for display name */
+  margin-bottom: 5px;
 }
 
 .post__headerDescription {
   margin-bottom: 10px;
-  font-size: 15px;
+  font-size: 16px; /* Increase font size for post text */
 }
 
-.post__headerText > h3 {
-  font-size: 15px;
-  margin-bottom: 5px;
+.post__footer {
+  display: flex;
+  align-items: center; /* Center align footer items */
+  margin-top: 20px;
 }
 
-.post__badge {
-  font-size: 14px !important;
-  color: var(--twitter-color);
+.post__footer > * {
+  margin-right: 10px; /* Add space between footer icons */
 }
 
-.post__headerSpecial {
-  font-weight: 600;
-  font-size: 12px;
-  color: gray;
-}
-
-.post__avatar {
-  padding: 20px;
+.post__footer > *:last-child {
+  margin-right: 0; /* Remove margin for the last item */
 }
