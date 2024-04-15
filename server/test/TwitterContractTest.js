@@ -1,18 +1,19 @@
-const {expect} = require("chai");
-const {ethers} = require("hardhat");
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
 
-describe("Twitter Contract", function() {
+describe("Twitter Contract", function () {
   let Twitter;
   let twitter;
   let owner;
 
   const NUM_TOTAL_NOT_MY_TWEETS = 5;
   const NUM_TOTAL_MY_TWEETS = 3;
+  const NUM_TOTAL_SUBMISSIONS = 0; // Adjust this number based on the number of submissions you want to test
 
   let totalTweets;
   let totalMyTweets;
 
-  beforeEach(async function() {
+  beforeEach(async function () {
     Twitter = await ethers.getContractFactory("TwitterContract");
     [owner, addr1, addr2] = await ethers.getSigners();
     twitter = await Twitter.deploy();
@@ -20,56 +21,90 @@ describe("Twitter Contract", function() {
     totalTweets = [];
     totalMyTweets = [];
 
-    for(let i=0; i<NUM_TOTAL_NOT_MY_TWEETS; i++) {
+    for (let i = 0; i < NUM_TOTAL_NOT_MY_TWEETS; i++) {
       let tweet = {
         'tweetText': 'Random text with id:- ' + i,
+        'newsUrl': 'https://www.google.com/',
         'username': addr1,
         'isDeleted': false
       };
 
-      await twitter.connect(addr1).addTweet(tweet.tweetText, tweet.isDeleted);
+      await twitter.connect(addr1).addTweet(tweet.newsUrl,tweet.tweetText, tweet.isDeleted);
       totalTweets.push(tweet);
     }
 
-    for(let i=0; i<NUM_TOTAL_MY_TWEETS; i++) {
+    for (let i = 0; i < NUM_TOTAL_MY_TWEETS; i++) {
       let tweet = {
         'username': owner,
-        'tweetText': 'Ramdon text with id:- ' + (NUM_TOTAL_NOT_MY_TWEETS+i),
+        'newsUrl': 'https://www.google.com/',
+        'tweetText': 'Random text with id:- ' + (NUM_TOTAL_NOT_MY_TWEETS + i),
         'isDeleted': false
       };
 
-      await twitter.addTweet(tweet.tweetText, tweet.isDeleted);
+      await twitter.addTweet(tweet.newsUrl,tweet.tweetText, tweet.isDeleted);
       totalTweets.push(tweet);
       totalMyTweets.push(tweet);
     }
   });
 
-  describe("Add Tweet", function() {
-    it("should emit AddTweet event", async function() {
+  describe("Add Tweet", function () {
+    it("should emit AddTweet event", async function () {
       let tweet = {
         'tweetText': 'New Tweet',
+        'newsUrl': 'https://www.google.com/',
         'isDeleted': false
       };
-
-      await expect(await twitter.addTweet(tweet.tweetText, tweet.isDeleted)
-    ).to.emit(twitter, 'AddTweet').withArgs(owner.address, NUM_TOTAL_NOT_MY_TWEETS + NUM_TOTAL_MY_TWEETS);
+console.log(NUM_TOTAL_MY_TWEETS+NUM_TOTAL_NOT_MY_TWEETS);
+console.log(owner.address);
+      await expect(await twitter.addTweet(tweet.newsUrl,tweet.tweetText, tweet.isDeleted)
+      ).to.emit(twitter, 'AddTweet').withArgs(owner.address, NUM_TOTAL_NOT_MY_TWEETS + NUM_TOTAL_MY_TWEETS);
     })
   });
 
-  describe("Get All Tweets", function() {
-    it("should return the correct number of total tweets", async function() {
+  describe("Add Submission", function () {
+    it("should emit add Submission event", async function () {
+      let submission = {
+        'name': 'John Doe',
+        'email': '25Gupta.harsh@gmail.com',
+        'workField': 'Technology',
+        'qualifications': "Bachelor's Degree",
+        'recentWork': 'Some recent work details',
+        'experience': '3-5 years',
+        'proofs': 'proof1.pdf' // Provide example proof file names
+      };
+      await expect(await twitter.submit(
+          submission.name,
+          submission.email,
+          submission.workField,
+          submission.qualifications,
+          submission.recentWork,
+          submission.experience,
+          submission.proofs)
+      ).to.emit(twitter,'AddSubmission').withArgs(owner.address, NUM_TOTAL_SUBMISSIONS);
+    })
+  });
+
+  describe("Get All Submissions", function () {
+    it("should return the correct number of total submissions", async function () {
+      const submissionsFromChain = await twitter.getSubmissions();
+      expect(submissionsFromChain.length).to.equal(NUM_TOTAL_SUBMISSIONS);
+    })
+  });
+
+  describe("Get All Tweets", function () { 
+    it("should return the correct number of total tweets", async function () {
       const tweetsFromChain = await twitter.getAllTweets();
-      expect(tweetsFromChain.length).to.equal(NUM_TOTAL_NOT_MY_TWEETS+NUM_TOTAL_MY_TWEETS);
+      expect(tweetsFromChain.length).to.equal(NUM_TOTAL_NOT_MY_TWEETS + NUM_TOTAL_MY_TWEETS);
     })
 
-    it("should return the correct number of all my tweets", async function() {
+    it("should return the correct number of all my tweets", async function () {
       const myTweetsFromChain = await twitter.getMyTweets();
       expect(myTweetsFromChain.length).to.equal(NUM_TOTAL_MY_TWEETS);
     })
-  })
+  });
 
-  describe("Delete Tweet", function() {
-    it("should emit delete tweet event", async function() {
+  describe("Delete Tweet", function () {
+    it("should emit delete tweet event", async function () {
       const TWEET_ID = 0;
       const TWEET_DELETED = true;
 
@@ -81,5 +116,6 @@ describe("Twitter Contract", function() {
         TWEET_ID, TWEET_DELETED
       );
     })
-  })
+  });
+
 });

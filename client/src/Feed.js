@@ -6,7 +6,6 @@ import FlipMove from "react-flip-move";
 import { TwitterContractAddress } from "./config.js";
 import { ethers } from "ethers";
 import Twitter from "./utils/TwitterContract.json";
-import contract from "./utils/twitter.abi.json";
 import { Button, Modal, Box } from "@mui/material";
 
 function Feed({ personal }) {
@@ -57,7 +56,7 @@ function Feed({ personal }) {
         const signer = await provider.getSigner();
         const TwitterContract = new ethers.Contract(
           TwitterContractAddress,
-          contract,
+          Twitter.abi,
           signer
         );
 
@@ -88,7 +87,7 @@ function Feed({ personal }) {
         const signer = await provider.getSigner();
         const TwitterContract = new ethers.Contract(
           TwitterContractAddress,
-          contract,
+          Twitter.abi,
           signer
         );
 

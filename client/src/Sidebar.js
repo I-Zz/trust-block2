@@ -12,7 +12,9 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "@mui/material";
-
+import { TwitterContractAddress } from "./config.js";
+import { ethers } from "ethers";
+import Twitter from "./utils/TwitterContract.json";
 function Sidebar() {
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
@@ -73,6 +75,83 @@ function Sidebar() {
     };
   }, [showPopup]);
 
+  const submitFunction= async (e) => {
+    if(formData.proofs.length === 0) {
+      alert("Please upload at least one proof file");
+      return;
+    }else{
+      let submission = {
+        'name': formData.name,
+        'email': formData.email,
+        'workField': formData.workField,
+        'qualifications': formData.qualifications,
+        'recentWork':  formData.recentWork,
+        'experience': formData.experience,
+        'proofs':formData.proofs
+      };
+    
+      try {
+        const { ethereum } = window;
+    
+        if (ethereum) {
+          const provider = new ethers.BrowserProvider(ethereum);
+          const signer = await provider.getSigner();
+          const TwitterContract = new ethers.Contract(
+            TwitterContractAddress,
+            Twitter.abi,
+            signer
+          );
+    
+          let twitterTx = await TwitterContract.submit(
+            submission.name,
+            submission.email,
+            submission.workField,
+            submission.qualifications,
+            submission.recentWork,
+            submission.experience,
+            "submission.proofs"
+          );
+          console.log(twitterTx);
+        } else {
+          console.log("Ethereum object doesn't exist!");
+        }
+      } catch (error) {
+        console.log("Error submitting new Post", error);
+      }
+      console.log(formData);
+    }
+    };
+
+    const getAllSubmissions = async () => {
+      try {
+        const { ethereum } = window;
+        if (ethereum) {
+          const provider = new ethers.BrowserProvider(ethereum);
+          const signer = await provider.getSigner();
+          const TwitterContract = new ethers.Contract(
+            TwitterContractAddress,
+            Twitter.abi,
+            signer
+          );
+  
+          let allTweets = await TwitterContract.getSubmissions();
+          console.log("allTweets", allTweets);
+          // setPosts(getUpdatedTweets(allTweets, ethereum.selectedAddress));
+        } else {
+          console.log("Ethereum object doesn't exist");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    useEffect(() => {
+      getAllSubmissions();
+    }, []);
+  
+const handleSubmitf= async (e) => {
+submitFunction();
+ 
+};
   return (
     <div className="sidebar">
       <div className="sidebar__top">
@@ -204,7 +283,7 @@ function Sidebar() {
                   multiple
                 />
               </div>
-              <button type="submit">Submit</button>
+              <button type="submit" onClick={handleSubmitf}>Submit</button>
             </form>
           </div>
         </div>
