@@ -4,7 +4,7 @@
   /* border: 1px solid #ccc; border-radius: 8px; */
   /* background: #fff; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 400px; /* Set the width of the popup */
+  width: 400px;
   margin: 0 auto; /* Center the popup horizontally */
 }
 
