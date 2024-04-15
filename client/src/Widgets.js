@@ -54,11 +54,7 @@ function Widgets() {
               <div className="news-card" key={index}>
                 <h3>{article.title}</h3>
                 <p>{article.description}</p>
-                <a
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={article.url} target="_blank" rel="noopener noreferrer">
                   Read More
                 </a>
               </div>
@@ -66,16 +62,17 @@ function Widgets() {
           </div>
         </div>
         <div className="twitter-embed-container">
-      <select
-        value={selectedUser}
-        onChange={handleUserChange}
-      >
-        {twitterUsers.map((user) => (
-          <option key={user.username} value={user.username}>
-            Top Tweets from {user.displayName}
-          </option>
-        ))}
-      </select>
+          <select value={selectedUser} onChange={handleUserChange}>
+            {twitterUsers.map((user) => (
+              <option
+                key={user.username}
+                value={user.username}
+                style={{ color: "black" }}
+              >
+                Top Tweets from {user.displayName}
+              </option>
+            ))}
+          </select>
 
           <TwitterTimelineEmbed
             key={selectedUser}

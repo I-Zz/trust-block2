@@ -35,14 +35,51 @@
   flex: 1;
 }
 
+.post__header {
+  /* Prevent expanding parent */
+  flex: 0 0 auto;
+  overflow: hidden;
+  /* flex-shrink: 0; */
+}
+
+.post__headerText {
+  /* Allow text to wrap */
+  word-wrap: break-word;
+  white-space: normal;
+  /* Limit the width of the header to prevent it from expanding */
+  max-width: 100%;
+  overflow: hidden; /* Hide the overflow */
+  text-overflow: ellipsis; /* Add ellipsis for truncated text */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+}
+
 .post__headerText > h3 {
   font-size: 18px; /* Increase font size for display name */
   margin-bottom: 5px;
 }
 
+.post__headerNews {
+  /* Allow text to wrap */
+  word-wrap: break-word;
+  white-space: normal;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-width: 35vw;
+}
+
 .post__headerDescription {
   margin-bottom: 10px;
   font-size: 16px; /* Increase font size for post text */
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden; /* Hide the overflow */
+  text-overflow: ellipsis; /* Add ellipsis for truncated text */
+  display: -webkit-box;
+  /* -webkit-line-clamp: 3; */
+  /* -webkit-box-orient: vertical; */
+  max-width: 35vw;
 }
 
 .post__footer {

@@ -18,8 +18,8 @@ function TweetBox() {
 
   const addPost = async () => {
     let tweet = {
-      newsUrl: tweetImage,
       text: tweetMessage, // Assuming tweetMessage is defined elsewhere
+      newsUrl: tweetImage,
       isDeleted: false,
     };
   
@@ -36,8 +36,8 @@ function TweetBox() {
         );
   
         let twitterTx = await TwitterContract.addPost(
-          tweet.newsUrl,
           tweet.text, // Corrected: use 'text' property of the tweet object
+          tweet.newsUrl,
           tweet.isDeleted
         );
   
