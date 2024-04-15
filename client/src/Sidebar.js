@@ -157,8 +157,8 @@ function Sidebar({ isVerified, setIsVerified }) {
         <h2>TrustBlock</h2>
       </div>
       <SidebarOption Icon={HomeIcon} text="Home" />
-      <SidebarOption Icon={SearchIcon} text="Explore" />
-      <SidebarOption Icon={BookmarkBorderIcon} text="Bookmarks" />
+      <SidebarOption Icon={SearchIcon} text="Search" />
+      <SidebarOption Icon={BookmarkBorderIcon} text="Saved Posts" />
       <SidebarOption Icon={ListAltIcon} text="Lists" />
       <SidebarOption Icon={PermIdentityIcon} text="Profile" />
       <SidebarOption Icon={MoreHorizIcon} text="More" />

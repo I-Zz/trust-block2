@@ -2,16 +2,16 @@
 
 pragma solidity ^0.8.4;
 
-contract TwitterContract {
-    event AddTweet(address recipient, uint tweetId);
-    event DeleteTweet(uint tweetId, bool isDeleted);
+contract TrustBlockContract {
+    event AddPost(address recipient, uint postId);
+    event DeletePost(uint postId, bool isDeleted);
     event AddSubmission(address indexed recipient, uint submissionId);
 
-    struct Tweet {
+    struct Post {
         uint id;
         address username;
         string newUrl;
-        string tweetText;
+        string text;
         bool isDeleted;
     }
 
@@ -27,61 +27,63 @@ contract TwitterContract {
         string proofs;
     }
 
-    Tweet[] private tweets;
+    Post[] private postList;
     Submission[] private submissions;
+     
 
-    // Mapping of Tweet id to the wallet address of the user
-    mapping(uint256 => address) tweetToOwner;
 
-    // Method to be called by our frontend when trying to add a new Tweet
-    function addTweet(string memory tweetText,string memory newsUrl, bool isDeleted) external {
-        uint tweetId = tweets.length;
-        tweets.push(Tweet(tweetId, msg.sender,newsUrl,  tweetText, isDeleted));
-        tweetToOwner[tweetId] = msg.sender;
-        emit AddTweet(msg.sender, tweetId);
+    // Mapping of Post id to the wallet address of the user
+    mapping(uint256 => address) textToOwner;
+
+    // Method to be called by our frontend when trying to add a new Post
+    function addPost(string memory text,string memory newsUrl, bool isDeleted) external {
+        uint textId = postList.length;
+        postList.push(Post(textId, msg.sender,newsUrl,  text, isDeleted));
+        textToOwner[textId] = msg.sender;
+        emit AddPost(msg.sender, textId);
+    // Method to get all the postList
     }
 
-    // Method to get all the Tweets
-    function getAllTweets() external view returns (Tweet[] memory) {
-        Tweet[] memory temporary = new Tweet[](tweets.length);
+    function getAllPosts() external view returns (Post[] memory) {
+        Post[] memory temporary = new Post[](postList.length);
         uint counter = 0;
-        for (uint i = 0; i < tweets.length; i++) {
-            if (tweets[i].isDeleted == false) {
-                temporary[counter] = tweets[i];
+        for (uint i = 0; i < postList.length; i++) {
+            if (postList[i].isDeleted == false) {
+                temporary[counter] = postList[i];
                 counter++;
             }
         }
 
-        Tweet[] memory result = new Tweet[](counter);
+        Post[] memory result = new Post[](counter);
         for (uint i = 0; i < counter; i++) {
             result[i] = temporary[i];
         }
         return result;
     }
 
-    // Method to get only your Tweets
-    function getMyTweets() external view returns (Tweet[] memory) {
-        Tweet[] memory temporary = new Tweet[](tweets.length);
+    // Method to get only your Posts
+    function getMyPosts() external view returns (Post[] memory) {
+        Post[] memory temporary = new Post[](postList.length);
         uint counter = 0;
-        for (uint i = 0; i < tweets.length; i++) {
-            if (tweetToOwner[i] == msg.sender && tweets[i].isDeleted == false) {
-                temporary[counter] = tweets[i];
+        for (uint i = 0; i < postList.length; i++) {
+            if (textToOwner[i] == msg.sender && postList[i].isDeleted == false) {
+                temporary[counter] = postList[i];
                 counter++;
             }
         }
 
-        Tweet[] memory result = new Tweet[](counter);
+        Post[] memory result = new Post[](counter);
         for (uint i = 0; i < counter; i++) {
             result[i] = temporary[i];
         }
         return result;
     }
 
-    // Method to Delete a Tweet
-    function deleteTweet(uint tweetId, bool isDeleted) external {
-        if (tweetToOwner[tweetId] == msg.sender) {
-            tweets[tweetId].isDeleted = isDeleted;
-            emit DeleteTweet(tweetId, isDeleted);
+    // Method to Delete a Post
+    function deletePost(uint textId, bool isDeleted) external {
+        if (textToOwner[textId] == msg.sender) {
+            postList[textId].isDeleted = isDeleted;
+            emit DeletePost(textId, isDeleted);
         }
     }
 
@@ -97,7 +99,7 @@ contract TwitterContract {
     ) external {
         uint submissionId = submissions.length;
         submissions.push(Submission(submissionId, msg.sender, _name, _email, _workField, _qualifications, _recentWork, _experience, _proofs));
-         tweetToOwner[submissionId] = msg.sender;
+         textToOwner[submissionId] = msg.sender;
         emit AddSubmission(msg.sender, submissionId);
     }
 
