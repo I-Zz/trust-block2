@@ -4,38 +4,40 @@ import Avatar from "avataaars2";
 import { generateRandomAvatarOptions } from "./avatar";
 import { Button } from "@mui/material";
 import axios from "axios";
-import { TwitterContractAddress } from "./config.js";
+import { TrustBlockContractAddress } from "./config.js";
 import { ethers } from "ethers";
-import Twitter from "./utils/TwitterContract.json";
+import Twitter from "./utils/TrustBlockContract.json";
 
 function TweetBox() {
   const [tweetMessage, setTweetMessage] = useState("");
   const [tweetImage, setTweetImage] = useState("");
   const [avatarOptions, setAvatarOptions] = useState("");
 
-  const addTweet = async () => {
+  const addPost = async () => {
     let tweet = {
-      tweetText: tweetMessage,
+      newsUrl: tweetImage,
+      text: tweetMessage, // Assuming tweetMessage is defined elsewhere
       isDeleted: false,
     };
-
+  
     try {
       const { ethereum } = window;
-
+  
       if (ethereum) {
         const provider = new ethers.BrowserProvider(ethereum);
         const signer = await provider.getSigner();
         const TwitterContract = new ethers.Contract(
-          TwitterContractAddress,
+          TrustBlockContractAddress,
           Twitter.abi,
           signer
         );
-
-        let twitterTx = await TwitterContract.addTweet(
-          tweet.tweetText,
+  
+        let twitterTx = await TwitterContract.addPost(
+          tweet.newsUrl,
+          tweet.text, // Corrected: use 'text' property of the tweet object
           tweet.isDeleted
         );
-
+  
         console.log(twitterTx);
       } else {
         console.log("Ethereum object doesn't exist!");
@@ -44,11 +46,11 @@ function TweetBox() {
       console.log("Error submitting new Post", error);
     }
   };
-
+  
   const sendTweet = (e) => {
     e.preventDefault();
 
-    addTweet();
+    addPost();
 
     setTweetMessage("");
     setTweetImage("");

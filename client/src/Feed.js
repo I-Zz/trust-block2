@@ -3,21 +3,21 @@ import TweetBox from "./TweetBox";
 import Post from "./Post";
 import "./Feed.css";
 import FlipMove from "react-flip-move";
-import { TwitterContractAddress } from "./config.js";
+import { TrustBlockContractAddress } from "./config.js";
 import { ethers } from "ethers";
-import Twitter from "./utils/TwitterContract.json";
+import Twitter from "./utils/TrustBlockContract.json";
 import { Button, Modal, Box } from "@mui/material";
 
 function Feed({ personal }) {
   const [posts, setPosts] = useState([]);
-  const [isTweetBoxOpen, setIsTweetBoxOpen] = useState(false);
+  const [isPostBoxOpen, setIsPostBoxOpen] = useState(false);
 
   const handlePostButtonClick = () => {
-    setIsTweetBoxOpen(true);
+    setIsPostBoxOpen(true);
   };
 
   const handleCloseTweetBox = () => {
-    setIsTweetBoxOpen(false);
+    setIsPostBoxOpen(false);
   };
 
   const getUpdatedTweets = (allTweets, address) => {
@@ -27,7 +27,8 @@ function Feed({ personal }) {
       if (allTweets[i].username.toLowerCase() === address.toLowerCase()) {
         let tweet = {
           id: allTweets[i].id,
-          tweetText: allTweets[i].tweetText,
+          newsUrl: allTweets[i].newsUrl,
+          text: allTweets[i].text,
           isDeleted: allTweets[i].isDeleted,
           username: allTweets[i].username,
           personal: true,
@@ -36,7 +37,8 @@ function Feed({ personal }) {
       } else {
         let tweet = {
           id: allTweets[i].id,
-          tweetText: allTweets[i].tweetText,
+          newsUrl: allTweets[i].newsUrl,
+          text: allTweets[i].text,
           isDeleted: allTweets[i].isDeleted,
           username: allTweets[i].username,
           personal: false,
@@ -47,7 +49,7 @@ function Feed({ personal }) {
     return updatedTweets;
   };
 
-  const getAllTweets = async () => {
+  const getAllPosts = async () => {
     try {
       const { ethereum } = window;
 
@@ -55,13 +57,13 @@ function Feed({ personal }) {
         const provider = new ethers.BrowserProvider(ethereum);
         const signer = await provider.getSigner();
         const TwitterContract = new ethers.Contract(
-          TwitterContractAddress,
+          TrustBlockContractAddress,
           Twitter.abi,
           signer
         );
 
-        let allTweets = await TwitterContract.getAllTweets();
-        console.log(allTweets);
+        let allTweets = await TwitterContract.getAllPosts();
+        console.log("newPosts",allTweets);
         setPosts(getUpdatedTweets(allTweets, ethereum.selectedAddress));
       } else {
         console.log("Ethereum object doesn't exist");
@@ -72,10 +74,10 @@ function Feed({ personal }) {
   };
 
   useEffect(() => {
-    getAllTweets();
+    getAllPosts();
   }, []);
 
-  const deleteTweet = (key) => async () => {
+  const deletePost = (key) => async () => {
     console.log(key);
 
     // Now we got the key, let's delete our tweet
@@ -86,13 +88,13 @@ function Feed({ personal }) {
         const provider = new ethers.BrowserProvider(ethereum);
         const signer = await provider.getSigner();
         const TwitterContract = new ethers.Contract(
-          TwitterContractAddress,
+          TrustBlockContractAddress,
           Twitter.abi,
           signer
         );
 
-        let deleteTweetTx = await TwitterContract.deleteTweet(key, true);
-        let allTweets = await TwitterContract.getAllTweets();
+        let deletePostTx = await TwitterContract.deletePost(key, true);
+        let allTweets = await TwitterContract.getAllPosts();
         console.log(allTweets);
         setPosts(getUpdatedTweets(allTweets, ethereum.selectedAddress));
       } else {
@@ -113,7 +115,7 @@ function Feed({ personal }) {
         </Button>
       </div>
       <Modal
-        open={isTweetBoxOpen}
+        open={isPostBoxOpen}
         onClose={handleCloseTweetBox}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -139,9 +141,9 @@ function Feed({ personal }) {
           <Post
             key={post.id}
             displayName={post.username}
-            text={post.tweetText}
+            text={post.text}
             personal={post.personal}
-            onClick={deleteTweet(post.id)}
+            onClick={deletePost(post.id)}
           />
         ))}
       </FlipMove>

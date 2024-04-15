@@ -1,1 +1,1 @@
-export const TwitterContractAddress = "0x9d09305380D0Ad776778DD1d924Ca2545cc04212"
+export const TrustBlockContractAddress = "0x9C87C38369019fB5a85153Af95FcEEdFA3445de6"

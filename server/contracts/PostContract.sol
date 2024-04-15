@@ -43,7 +43,7 @@ contract TrustBlockContract {
         emit AddPost(msg.sender, textId);
     // Method to get all the postList
     }
-
+    
     function getAllPosts() external view returns (Post[] memory) {
         Post[] memory temporary = new Post[](postList.length);
         uint counter = 0;

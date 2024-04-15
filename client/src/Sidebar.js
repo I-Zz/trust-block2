@@ -8,9 +8,9 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "@mui/material";
-import { TwitterContractAddress } from "./config.js";
+import { TrustBlockContractAddress } from "./config.js";
 import { ethers } from "ethers";
-import Twitter from "./utils/TwitterContract.json";
+import TrustBlockContract from "./utils/TrustBlockContract.json";
 function Sidebar() {
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
@@ -94,8 +94,8 @@ function Sidebar() {
           const provider = new ethers.BrowserProvider(ethereum);
           const signer = await provider.getSigner();
           const TwitterContract = new ethers.Contract(
-            TwitterContractAddress,
-            Twitter.abi,
+            TrustBlockContractAddress,
+            TrustBlockContract.abi,
             signer
           );
     
@@ -126,8 +126,8 @@ function Sidebar() {
           const provider = new ethers.BrowserProvider(ethereum);
           const signer = await provider.getSigner();
           const TwitterContract = new ethers.Contract(
-            TwitterContractAddress,
-            Twitter.abi,
+            TrustBlockContractAddress,
+            TrustBlockContract.abi,
             signer
           );
   
