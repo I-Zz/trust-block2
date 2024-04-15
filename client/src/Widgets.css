@@ -74,6 +74,25 @@
   cursor: pointer;
 }
 
+.twitter-embed-container select{
+  font-weight: 900;
+  color: white;
+  background: linear-gradient(135deg, #ff8a00, #e52e71);
+  text-align: center; 
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: large;
+}
+
+.twitter-embed-container select:hover{
+  font-weight: 900;
+  color:white;
+  background: linear-gradient(135deg, #e52e71, #ff8a00);
+  text-align: center; 
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 
 .news-embed-container {
   margin-top: -25px;
