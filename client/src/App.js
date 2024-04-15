@@ -5,8 +5,8 @@ import Widgets from "./Widgets";
 import "./App.css";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import { TwitterContractAddress } from "./config.js";
-import Twitter from "./utils/TwitterContract.json";
+import { TrustBlockContractAddress } from "./config.js";
+import Twitter from "./utils/TrustBlockContract.json";
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState("");
@@ -42,7 +42,7 @@ function App() {
       const provider = new ethers.BrowserProvider(ethereum);
       const signer = await provider.getSigner();
       const TwitterContract = new ethers.Contract(
-        TwitterContractAddress,
+        TrustBlockContractAddress,
         Twitter.abi,
         signer
       );
