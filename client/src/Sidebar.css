@@ -5,7 +5,7 @@
   margin-top: 10px;
   margin-right: 20px;
   border-right: 1px solid #1a282d;
-
+  color: white;
   padding-left: 0px;
   padding-right: 20px;
 }
@@ -70,6 +70,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  color: white;
 }
 
 .popup-content {
@@ -81,17 +82,20 @@
   padding: 30px;
   max-width: 500px;
   width: 100%;
+  color: white;
 }
 
 .popup-content form {
   display: flex;
   flex-direction: column;
+  color: white;
 }
 
 .form-group {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  color: white;
 }
 
 .form-group label {
@@ -117,7 +121,9 @@
 .form-group select:focus {
   outline: none;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  color: white;
 }
+
 
 button[type="submit"] {
   padding: 10px 20px;

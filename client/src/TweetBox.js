@@ -71,7 +71,7 @@ function TweetBox() {
             avatarStyle="Circle"
             {...avatarOptions}
           /> */}
-          <input
+          <textarea
             className="tweetBox__imageInput"
             onChange={(e) => setTweetMessage(e.target.value)}
             value={tweetMessage}

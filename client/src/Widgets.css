@@ -10,9 +10,9 @@
   padding: 10px;
   border-radius: 20px;
   margin-top: 10px;
-  margin-left: 20px;
+  margin-left: 60px;
   display: flex;
-  max-width: 50%;
+  width: 75%;
   padding: 10px;
 }
 
@@ -53,40 +53,97 @@
 .twitter-embed-container {
   flex: 1;
   overflow-y: auto;
-  background: linear-gradient(135deg, #0b1416, #3e1f32);
+  background: linear-gradient(135deg, #3e1f32);
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 20px;
+  padding: 20px;
 }
 
+.twitter-embed-container h2{
+  background: linear-gradient(135deg, #ff8a00, #e52e71);
+  text-align: center; 
+  border-radius: 10px;
+  cursor: pointer;
+}
+.twitter-embed-container h2:hover{
+  background: linear-gradient(135deg, #e52e71, #ff8a00);
+  text-align: center; 
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.twitter-embed-container select{
+  font-weight: 900;
+  color: white;
+  background: linear-gradient(135deg, #ff8a00, #e52e71);
+  text-align: center; 
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: large;
+}
+
+.twitter-embed-container select:hover{
+  font-weight: 900;
+  color:white;
+  background: linear-gradient(135deg, #e52e71, #ff8a00);
+  text-align: center; 
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
 .news-embed-container {
+  margin-top: -25px;
   flex: 1;
   overflow-y: auto;
-  background: linear-gradient(135deg, #0b1416, #3e1f32);
+  background: linear-gradient(135deg, #3e1f32);
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
+  cursor: pointer;
+}
+
+.news-embed-container h2{
+  background: linear-gradient(135deg, #ff8a00, #e52e71);
+  text-align: center; 
+  border-radius: 10px;
+  cursor: pointer;
+}
+.news-embed-container h2:hover{
+  background: linear-gradient(135deg, #e52e71, #ff8a00);
+  text-align: center; 
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .news-card {
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  border-radius: 0px;
-  padding: 5px;
-  gap:10px;
+  border-radius: 10px;
+  padding: 20px;
   box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.37);
+  gap: 10px;
 }
 
 .news-card h3 {
   margin-top: 0;
+  font-weight:900;
+
 }
 
 .news-card p {
   margin-bottom: 10px;
+  font-weight: 200;
 }
 
 .news-card a {
   color: #1da1f2;
   text-decoration: none;
 }
+
 .news-card a:hover {
   color: #548bad;
   text-decoration: none;

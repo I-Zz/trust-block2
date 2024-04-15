@@ -29,6 +29,8 @@ contract TrustBlockContract {
 
     Post[] private postList;
     Submission[] private submissions;
+     
+
 
     // Mapping of Post id to the wallet address of the user
     mapping(uint256 => address) textToOwner;
@@ -39,9 +41,9 @@ contract TrustBlockContract {
         postList.push(Post(textId, msg.sender,newsUrl,  text, isDeleted));
         textToOwner[textId] = msg.sender;
         emit AddPost(msg.sender, textId);
+    // Method to get all the postList
     }
 
-    // Method to get all the postList
     function getAllPosts() external view returns (Post[] memory) {
         Post[] memory temporary = new Post[](postList.length);
         uint counter = 0;

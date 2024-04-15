@@ -9,6 +9,16 @@ import SearchIcon from "@mui/icons-material/Search";
 
 function Widgets() {
   const [newsArticles, setNewsArticles] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("timesofindia"); // Default user
+
+  // List of Twitter users to display in the dropdown
+  const twitterUsers = [
+    { username: "timesofindia", displayName: "Times of India" },
+    { username: "BBCWorld", displayName: "BBC World News" },
+    { username: "CNN", displayName: "CNN" },
+    { username: "nytimes", displayName: "The New York Times" },
+    { username: "guardian", displayName: "The Guardian" },
+  ];
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -22,9 +32,13 @@ function Widgets() {
         console.error("Error fetching news:", error);
       }
     };
-
     fetchNews();
   }, []);
+
+  // Function to handle user selection from the dropdown
+  const handleUserChange = (event) => {
+    setSelectedUser(event.target.value);
+  };
 
   return (
     <div className="widgets">
@@ -33,22 +47,18 @@ function Widgets() {
         <input placeholder="Search on TrustBlock" type="text" />
       </div>
       <div className="widgets__widgetContainer">
-        
-      <div className="news-embed-container">
-          <h2
-            style={{
-              backgroundImage: "linear-gradient(135deg, #ff8a00, #e52e71)",
-              textAlign: "center",
-            }}
-          >
-            Read Today's Top 5 News:
-          </h2>
+        <div className="news-embed-container">
+          <h2>Read Today's Top News</h2>
           <div className="news-card-container">
             {newsArticles.map((article, index) => (
               <div className="news-card" key={index}>
                 <h3>{article.title}</h3>
                 <p>{article.description}</p>
-                <a href={article.url} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={article.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Read More
                 </a>
               </div>
@@ -56,55 +66,28 @@ function Widgets() {
           </div>
         </div>
         <div className="twitter-embed-container">
-           <TwitterTimelineEmbed
+      <select
+        value={selectedUser}
+        onChange={handleUserChange}
+      >
+        {twitterUsers.map((user) => (
+          <option key={user.username} value={user.username}>
+            Top Tweets from {user.displayName}
+          </option>
+        ))}
+      </select>
+
+          <TwitterTimelineEmbed
+            key={selectedUser}
             sourceType="profile"
-            screenName="timesofindia"
+            screenName={selectedUser}
             options={{ height: 800 }}
+            style={{ margin: "auto" }}
           />
         </div>
-        {/* <TwitterShareButton
-          url={"https://twitter.com/rajpri8852"}
-          options={{ text: "Trust the TrustBlock", via: "rajpri8852" }}
-        /> */}
       </div>
     </div>
   );
 }
 
 export default Widgets;
-
-// import React from "react";
-// import "./Widgets.css";
-// import {
-//   TwitterTimelineEmbed,
-//   TwitterShareButton,
-//   TwitterTweetEmbed,
-// } from "react-twitter-embed";
-// import SearchIcon from "@mui/icons-material/Search";
-
-// function Widgets() {
-//   return (
-//     <div className="widgets">
-//       <div className="widgets__input">
-//         <SearchIcon className="widgets__searchIcon" />
-//         <input placeholder="Search on TrustBlock" type="text" />
-//       </div>
-//       <div className="widgets__widgetContainer">
-//         <h2>What's happening</h2>
-//         <div className="twitter-embed-container" style={{ backgroundColor: 'gray' }}>
-//           <TwitterTimelineEmbed
-//             sourceType="profile"
-//             screenName="timesofindia"
-//             options={{ height: 800 }}
-//           />
-//         </div>
-//         <TwitterShareButton
-//           url={"https://twitter.com/rajpri8852"}
-//           options={{ text: "Trust the TrustBlock", via: "rajpri8852" }}
-//         />
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Widgets;
