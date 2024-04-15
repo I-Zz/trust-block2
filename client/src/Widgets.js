@@ -22,7 +22,6 @@ function Widgets() {
         console.error("Error fetching news:", error);
       }
     };
-
     fetchNews();
   }, []);
 
@@ -33,15 +32,14 @@ function Widgets() {
         <input placeholder="Search on TrustBlock" type="text" />
       </div>
       <div className="widgets__widgetContainer">
-        
-      <div className="news-embed-container">
+        <div className="news-embed-container">
           <h2
-            style={{
-              backgroundImage: "linear-gradient(135deg, #ff8a00, #e52e71)",
-              textAlign: "center",
-            }}
+            // style={{
+            //   backgroundImage: "linear-gradient(135deg, #ff8a00, #e52e71)",
+            //   textAlign: "center", borderRadius: "10px", paddingTop: "-10px",
+            // }}
           >
-            Read Today's Top 5 News:
+            Read Today's Top News
           </h2>
           <div className="news-card-container">
             {newsArticles.map((article, index) => (
@@ -56,55 +54,24 @@ function Widgets() {
           </div>
         </div>
         <div className="twitter-embed-container">
-           <TwitterTimelineEmbed
+          <h2
+            // style={{
+            //   backgroundImage: "linear-gradient(135deg, #ff8a00, #e52e71)",
+            //   textAlign: "center", borderRadius: "10px", 
+            // }}
+          >
+            Read Today's Top Tweets
+          </h2>
+          <TwitterTimelineEmbed
             sourceType="profile"
             screenName="timesofindia"
             options={{ height: 800 }}
+            style={{ margin: "auto" }}
           />
         </div>
-        {/* <TwitterShareButton
-          url={"https://twitter.com/rajpri8852"}
-          options={{ text: "Trust the TrustBlock", via: "rajpri8852" }}
-        /> */}
       </div>
     </div>
   );
 }
 
 export default Widgets;
-
-// import React from "react";
-// import "./Widgets.css";
-// import {
-//   TwitterTimelineEmbed,
-//   TwitterShareButton,
-//   TwitterTweetEmbed,
-// } from "react-twitter-embed";
-// import SearchIcon from "@mui/icons-material/Search";
-
-// function Widgets() {
-//   return (
-//     <div className="widgets">
-//       <div className="widgets__input">
-//         <SearchIcon className="widgets__searchIcon" />
-//         <input placeholder="Search on TrustBlock" type="text" />
-//       </div>
-//       <div className="widgets__widgetContainer">
-//         <h2>What's happening</h2>
-//         <div className="twitter-embed-container" style={{ backgroundColor: 'gray' }}>
-//           <TwitterTimelineEmbed
-//             sourceType="profile"
-//             screenName="timesofindia"
-//             options={{ height: 800 }}
-//           />
-//         </div>
-//         <TwitterShareButton
-//           url={"https://twitter.com/rajpri8852"}
-//           options={{ text: "Trust the TrustBlock", via: "rajpri8852" }}
-//         />
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Widgets;
