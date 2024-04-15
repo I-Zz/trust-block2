@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 import { TwitterContractAddress } from "./config.js";
 import { ethers } from "ethers";
 import Twitter from "./utils/TwitterContract.json";
-function Sidebar() {
+function Sidebar({ isVerified, setIsVerified }) {
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -72,24 +72,24 @@ function Sidebar() {
     };
   }, [showPopup]);
 
-  const submitFunction= async (e) => {
-    if(formData.proofs.length === 0) {
+  const submitFunction = async (e) => {
+    if (formData.proofs.length === 0) {
       alert("Please upload at least one proof file");
       return;
-    }else{
+    } else {
       let submission = {
-        'name': formData.name,
-        'email': formData.email,
-        'workField': formData.workField,
-        'qualifications': formData.qualifications,
-        'recentWork':  formData.recentWork,
-        'experience': formData.experience,
-        'proofs':formData.proofs
+        name: formData.name,
+        email: formData.email,
+        workField: formData.workField,
+        qualifications: formData.qualifications,
+        recentWork: formData.recentWork,
+        experience: formData.experience,
+        proofs: formData.proofs,
       };
-    
+
       try {
         const { ethereum } = window;
-    
+
         if (ethereum) {
           const provider = new ethers.BrowserProvider(ethereum);
           const signer = await provider.getSigner();
@@ -98,7 +98,7 @@ function Sidebar() {
             Twitter.abi,
             signer
           );
-    
+
           let twitterTx = await TwitterContract.submit(
             submission.name,
             submission.email,
@@ -109,6 +109,7 @@ function Sidebar() {
             "submission.proofs"
           );
           console.log(twitterTx);
+          setIsVerified(true);
         } else {
           console.log("Ethereum object doesn't exist!");
         }
@@ -117,38 +118,37 @@ function Sidebar() {
       }
       console.log(formData);
     }
-    };
+  };
 
-    const getAllSubmissions = async () => {
-      try {
-        const { ethereum } = window;
-        if (ethereum) {
-          const provider = new ethers.BrowserProvider(ethereum);
-          const signer = await provider.getSigner();
-          const TwitterContract = new ethers.Contract(
-            TwitterContractAddress,
-            Twitter.abi,
-            signer
-          );
-  
-          let allTweets = await TwitterContract.getSubmissions();
-          console.log("allTweets", allTweets);
-          // setPosts(getUpdatedTweets(allTweets, ethereum.selectedAddress));
-        } else {
-          console.log("Ethereum object doesn't exist");
-        }
-      } catch (error) {
-        console.log(error);
+  const getAllSubmissions = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.BrowserProvider(ethereum);
+        const signer = await provider.getSigner();
+        const TwitterContract = new ethers.Contract(
+          TwitterContractAddress,
+          Twitter.abi,
+          signer
+        );
+
+        let allTweets = await TwitterContract.getSubmissions();
+        console.log("allTweets", allTweets);
+        // setPosts(getUpdatedTweets(allTweets, ethereum.selectedAddress));
+      } else {
+        console.log("Ethereum object doesn't exist");
       }
-    };
-    useEffect(() => {
-      getAllSubmissions();
-    }, []);
-  
-const handleSubmitf= async (e) => {
-submitFunction();
- 
-};
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getAllSubmissions();
+  }, []);
+
+  const handleSubmitf = async (e) => {
+    submitFunction();
+  };
   return (
     <div className="sidebar">
       <div className="sidebar__top">
@@ -163,18 +163,20 @@ submitFunction();
       <SidebarOption Icon={PermIdentityIcon} text="Profile" />
       <SidebarOption Icon={MoreHorizIcon} text="More" />
       {/* Button -> Tweet */}
-      <Button
-        variant="outlined"
-        className="sidebar__tweet"
-        fullWidth
-        onClick={() => setShowPopup(true)}
-      >
-        Share Opinion
-      </Button>
+      {!isVerified && (
+        <Button
+          variant="outlined"
+          className="sidebar__tweet"
+          fullWidth
+          onClick={() => setShowPopup(true)}
+        >
+          Get Verified
+        </Button>
+      )}
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-content" ref={popupRef}>
-          <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name:</label>
                 <input
@@ -208,17 +210,39 @@ submitFunction();
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select Work Field</option>
-                  <option value="Technology">Technology</option>
-                  <option value="Politics">Politics</option>
-                  <option value="Science">Science</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Health">Health</option>
-                  <option value="Sports">Sports</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Environment">Environment</option>
-                  <option value="Business">Business</option>
-                  <option value="Education">Education</option>
+                  <option value="" style={{ color: "black" }}>
+                    Select Work Field
+                  </option>
+                  <option value="Technology" style={{ color: "black" }}>
+                    Technology
+                  </option>
+                  <option value="Politics" style={{ color: "black" }}>
+                    Politics
+                  </option>
+                  <option value="Science" style={{ color: "black" }}>
+                    Science
+                  </option>
+                  <option value="Finance" style={{ color: "black" }}>
+                    Finance
+                  </option>
+                  <option value="Health" style={{ color: "black" }}>
+                    Health
+                  </option>
+                  <option value="Sports" style={{ color: "black" }}>
+                    Sports
+                  </option>
+                  <option value="Entertainment" style={{ color: "black" }}>
+                    Entertainment
+                  </option>
+                  <option value="Environment" style={{ color: "black" }}>
+                    Environment
+                  </option>
+                  <option value="Business" style={{ color: "black" }}>
+                    Business
+                  </option>
+                  <option value="Education" style={{ color: "black" }}>
+                    Education
+                  </option>
                 </select>
               </div>
               <div className="form-group">
@@ -230,16 +254,42 @@ submitFunction();
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select Qualifications</option>
-                  <option value="Bachelor's Degree">Bachelor's Degree</option>
-                  <option value="Master's Degree">Master's Degree</option>
-                  <option value="PhD">PhD</option>
-                  <option value="Diploma">Diploma</option>
-                  <option value="Certification">Certification</option>
-                  <option value="Associate's Degree">Associate's Degree</option>
-                  <option value="High School Diploma">High School Diploma</option>
-                  <option value="Professional Degree">Professional Degree</option>
-                  <option value="Other">Other</option>
+                  <option value="" style={{ color: "black" }}>
+                    Select Qualifications
+                  </option>
+                  <option value="Bachelor's Degree" style={{ color: "black" }}>
+                    Bachelor's Degree
+                  </option>
+                  <option value="Master's Degree" style={{ color: "black" }}>
+                    Master's Degree
+                  </option>
+                  <option value="PhD" style={{ color: "black" }}>
+                    PhD
+                  </option>
+                  <option value="Diploma" style={{ color: "black" }}>
+                    Diploma
+                  </option>
+                  <option value="Certification" style={{ color: "black" }}>
+                    Certification
+                  </option>
+                  <option value="Associate's Degree" style={{ color: "black" }}>
+                    Associate's Degree
+                  </option>
+                  <option
+                    value="High School Diploma"
+                    style={{ color: "black" }}
+                  >
+                    High School Diploma
+                  </option>
+                  <option
+                    value="Professional Degree"
+                    style={{ color: "black" }}
+                  >
+                    Professional Degree
+                  </option>
+                  <option value="Other" style={{ color: "black" }}>
+                    Other
+                  </option>
                 </select>
               </div>
               <div className="form-group">
@@ -262,13 +312,27 @@ submitFunction();
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select Experience</option>
-                  <option value="Less than 1 year">Less than 1 year</option>
-                  <option value="1-3 years">1-3 years</option>
-                  <option value="3-5 years">3-5 years</option>
-                  <option value="5-10 years">5-10 years</option>
-                  <option value="10+ years">10+ years</option>
-                  <option value="I'm a beginner">I'm a beginner</option>
+                  <option value="" style={{ color: "black" }}>
+                    Select Experience
+                  </option>
+                  <option value="Less than 1 year" style={{ color: "black" }}>
+                    Less than 1 year
+                  </option>
+                  <option value="1-3 years" style={{ color: "black" }}>
+                    1-3 years
+                  </option>
+                  <option value="3-5 years" style={{ color: "black" }}>
+                    3-5 years
+                  </option>
+                  <option value="5-10 years" style={{ color: "black" }}>
+                    5-10 years
+                  </option>
+                  <option value="10+ years" style={{ color: "black" }}>
+                    10+ years
+                  </option>
+                  <option value="I'm a beginner" style={{ color: "black" }}>
+                    I'm a beginner
+                  </option>
                 </select>
               </div>
               <div className="form-group">
@@ -283,7 +347,9 @@ submitFunction();
                   multiple
                 />
               </div>
-              <button type="submit" onClick={handleSubmitf}>Submit</button>
+              <button type="submit" onClick={handleSubmitf}>
+                Submit
+              </button>
             </form>
           </div>
         </div>

@@ -7,8 +7,9 @@ import { TwitterContractAddress } from "./config.js";
 import { ethers } from "ethers";
 import Twitter from "./utils/TwitterContract.json";
 import { Button, Modal, Box } from "@mui/material";
+import BlockIcon from '@mui/icons-material/Block';
 
-function Feed({ personal }) {
+function Feed({ personal, isVerified }) {
   const [posts, setPosts] = useState([]);
   const [isTweetBoxOpen, setIsTweetBoxOpen] = useState(false);
 
@@ -103,14 +104,22 @@ function Feed({ personal }) {
     }
   };
 
-  
   return (
     <div className="feed">
       <div className="feed__header">
         <h2>Home</h2>
-        <Button variant="contained" onClick={handlePostButtonClick}>
-          Post
-        </Button>
+        {isVerified ? (
+          <Button variant="contained" onClick={handlePostButtonClick}>
+            Post
+          </Button>
+        ) : (
+          <div
+            style={{ display: "flex", alignItems: "center", color: "#757575" }}
+          >
+            <BlockIcon style={{ marginRight: "8px" }} />
+            <span style={{ fontSize: "16px" }}>Not verified</span>
+          </div>
+        )}
       </div>
       <Modal
         open={isTweetBoxOpen}
