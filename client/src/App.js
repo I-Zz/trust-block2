@@ -32,7 +32,7 @@ function App() {
 
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
 
-      console.log('Found account', accounts[0])
+      console.log('Found account', accounts)
       setCurrentAccount(accounts[0])
     } catch (error) {
       console.log('Error connecting to metamask', error)
