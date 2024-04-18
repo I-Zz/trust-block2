@@ -5,6 +5,7 @@ const main = async () => {
 
   console.log("Contract deployed to (address): ", contract.address);
   console.log("Contract deployed to (target): ", contract.target);
+  // console.log("Contract", contract);
 };
 
 const runMain = async () => {
