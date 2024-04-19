@@ -14,6 +14,12 @@ function Widgets() {
   // List of Twitter users to display in the dropdown
   const twitterUsers = [
     { username: "timesofindia", displayName: "Times of India" },
+    { username: "ndtvindia", displayName: "NDTV India" },
+    { username: "IndiaToday", displayName: "IndiaToday" },
+    { username: "the_hindu", displayName: "The Hindu" },
+    { username: "firstpost", displayName: "Firstpost" },
+    { username: "livemint", displayName: "Mint" },
+    { username: "ThePrintIndia", displayName: "ThePrintIndia" },
     { username: "BBCWorld", displayName: "BBC World News" },
     { username: "CNN", displayName: "CNN" },
     { username: "nytimes", displayName: "The New York Times" },
