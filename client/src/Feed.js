@@ -28,7 +28,7 @@ function Feed({ personal, isVerified }) {
       if (allTweets[i].username.toLowerCase() === address.toLowerCase()) {
         let tweet = {
           id: allTweets[i].id,
-          newsUrl: allTweets[i].newsUrl,
+          newUrl: allTweets[i].newUrl,
           text: allTweets[i].text,
           isDeleted: allTweets[i].isDeleted,
           username: allTweets[i].username,
@@ -38,7 +38,7 @@ function Feed({ personal, isVerified }) {
       } else {
         let tweet = {
           id: allTweets[i].id,
-          newsUrl: allTweets[i].newsUrl,
+          newUrl: allTweets[i].newUrl,
           text: allTweets[i].text,
           isDeleted: allTweets[i].isDeleted,
           username: allTweets[i].username,
@@ -146,11 +146,12 @@ function Feed({ personal, isVerified }) {
       </Modal>
       {/* <TweetBox /> */}
       <FlipMove>
-        {posts.map((post) => (
+        {posts.slice().reverse().map((post) => (
           <Post
             key={post.id}
             displayName={post.username}
             text={post.text}
+            newsUrl={post.newUrl}
             personal={post.personal}
             onClick={deletePost(post.id)}
           />

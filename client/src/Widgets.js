@@ -14,6 +14,12 @@ function Widgets() {
   // List of Twitter users to display in the dropdown
   const twitterUsers = [
     { username: "timesofindia", displayName: "Times of India" },
+    { username: "ndtvindia", displayName: "NDTV India" },
+    { username: "IndiaToday", displayName: "IndiaToday" },
+    { username: "the_hindu", displayName: "The Hindu" },
+    { username: "firstpost", displayName: "Firstpost" },
+    { username: "livemint", displayName: "Mint" },
+    { username: "ThePrintIndia", displayName: "ThePrintIndia" },
     { username: "BBCWorld", displayName: "BBC World News" },
     { username: "CNN", displayName: "CNN" },
     { username: "nytimes", displayName: "The New York Times" },
@@ -54,11 +60,7 @@ function Widgets() {
               <div className="news-card" key={index}>
                 <h3>{article.title}</h3>
                 <p>{article.description}</p>
-                <a
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={article.url} target="_blank" rel="noopener noreferrer">
                   Read More
                 </a>
               </div>
@@ -66,16 +68,17 @@ function Widgets() {
           </div>
         </div>
         <div className="twitter-embed-container">
-      <select
-        value={selectedUser}
-        onChange={handleUserChange}
-      >
-        {twitterUsers.map((user) => (
-          <option key={user.username} value={user.username}>
-            Top Tweets from {user.displayName}
-          </option>
-        ))}
-      </select>
+          <select value={selectedUser} onChange={handleUserChange}>
+            {twitterUsers.map((user) => (
+              <option
+                key={user.username}
+                value={user.username}
+                style={{ color: "black" }}
+              >
+                Top Tweets from {user.displayName}
+              </option>
+            ))}
+          </select>
 
           <TwitterTimelineEmbed
             key={selectedUser}

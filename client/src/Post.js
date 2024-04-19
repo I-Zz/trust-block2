@@ -9,35 +9,45 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PublishIcon from "@mui/icons-material/Publish";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const Post = forwardRef(({ displayName, text, personal, onClick }, ref) => {
-  return (
-    <div className="post" ref={ref}>
-      <div className="post__avatar">
-        <Avatar
-          style={{ width: "100px", height: "100px" }}
-          avatarStyle="Circle"
-          {...generateRandomAvatarOptions()}
-        />
-      </div>
-      <div className="post__body">
-        <div className="post__header">
-          <div className="post__headerText">
-            <h3>{displayName} </h3>
+const Post = forwardRef(
+  ({ displayName, text, newsUrl, personal, onClick }, ref) => {
+    return (
+      <div className="post" ref={ref}>
+        <div className="post__avatar">
+          <Avatar
+            style={{ width: "100px", height: "100px" }}
+            avatarStyle="Circle"
+            {...generateRandomAvatarOptions()}
+          />
+        </div>
+        <div className="post__body">
+          <div className="post__header">
+            <div className="post__headerText">
+              <h3>{displayName} </h3>
+            </div>
+            <div className="post__headerNews">
+              <p>
+                Link for the News Article:{" "}
+                <a href={newsUrl} style={{ color: "#ff4500" }}>
+                  {newsUrl}
+                </a>
+              </p>
+            </div>
+            <div className="post__headerDescription">
+              <p>{text}</p>
+            </div>
           </div>
-          <div className="post__headerDescription">
-            <p>{text}</p>
+          <div className="post__footer">
+            <ChatBubbleOutlineIcon fontSize="small" />
+            <RepeatIcon fontSize="small" />
+            <FavoriteBorderIcon fontSize="small" />
+            <PublishIcon fontSize="small" />
+            {personal ? <DeleteIcon fontSize="small" onClick={onClick} /> : ""}
           </div>
         </div>
-        <div className="post__footer">
-          <ChatBubbleOutlineIcon fontSize="small" />
-          <RepeatIcon fontSize="small" />
-          <FavoriteBorderIcon fontSize="small" />
-          <PublishIcon fontSize="small" />
-          {personal ? <DeleteIcon fontSize="small" onClick={onClick} /> : ""}
-        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default Post;
